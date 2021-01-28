@@ -29,16 +29,12 @@ INCLUDE_FOLDER = ./include/
 BIN_FOLDER = ./bin/
 OBJ_FOLDER = ./obj/
 SRC_FOLDER = ./src/
-TEST_FOLDER := test
 
 # all sources, objs, and header files
-MAIN = main
-TESTER := src/testes/tester.cpp
+MAIN = Main
 TARGET = run.out
 SRC = $(wildcard $(SRC_FOLDER)*.cc)
 OBJ = $(patsubst $(SRC_FOLDER)%.cc, $(OBJ_FOLDER)%.o, $(SRC))
-
-# TSTSOURCES := $(shell find $(TEST_FOLDER) -type f -name *.$(SRC_FOLDER))
 
 $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.cc
 	$(CC) $(CXXFLAGS) -c $< -o $@ -I$(INCLUDE_FOLDER)
@@ -48,10 +44,3 @@ all: $(OBJ)
 
 clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)*
-
-tests: $(OBJ)
-	@mkdir -p $(BIN_FOLDER)
-	$(CC) $(CXXFLAGS) $(INCLUDE_FOLDER) $(TESTER) $(TSTSOURCES) $^ -o $(BIN_FOLDER)/tester
-	$(BIN_FOLDER)/tester
-
-.PHONY: clean coverage
