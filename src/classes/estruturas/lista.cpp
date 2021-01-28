@@ -104,7 +104,7 @@ void Lista<T>::inserirItemUltimaPosicao(T item) {
 void Lista::imprimirLista() {
     Nodo* elementoAtual = primeiroItem;
     while (elementoAtual->proximoItem) {
-        cin >> elementoAtual->item;
+        std::cin >> elementoAtual->item;
         elementoAtual = elementoAtual->proximoItem;
     }
 }
@@ -112,7 +112,7 @@ void Lista::imprimirLista() {
 void Lista::imprimirListaReversa() {
     Nodo* elementoAtual = ultimoItem;
     while (elementoAtual->itemAnterior) {
-        cin >> elementoAtual->item;
+        std::cin >> elementoAtual->item;
         elementoAtual = elementoAtual->itemAnterior;
     }
 }
