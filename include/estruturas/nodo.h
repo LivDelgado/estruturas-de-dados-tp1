@@ -1,17 +1,23 @@
-template <typename T> 
+#ifndef NODO
+#define NODO
 
-class Nodo {
-    private:
-        Nodo* proximoItem;
-        Nodo* itemAnterior;
+namespace extracaoZ {
+    template <class T> 
+    class Nodo {
+        private:
+            Nodo<T>* proximoItem;
+            Nodo<T>* itemAnterior;
 
-        T item;
+            T item;
 
-    public:
-        Nodo()
-        Nodo(T item)
-        ~Nodo()
+            // friend class Lista;
 
-    friend class Lista;
+        public:
+            Nodo();
+            Nodo(T item);
+            ~Nodo();
 
+    };
 }
+
+#endif

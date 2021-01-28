@@ -752,7 +752,7 @@ namespace detail {
     template<class T> struct remove_const<const T> { typedef T type; };
     // clang-format on
 
-    template <typename T>
+    template <class T>
     struct deferred_false
     // cppcheck-suppress unusedStructMember
     { static const bool value = false; };
@@ -763,7 +763,7 @@ namespace detail {
 
         struct any_t
         {
-            template <typename T>
+            template <class T>
             // cppcheck-suppress noExplicitConstructor
             any_t(const DOCTEST_REF_WRAP(T));
         };
@@ -773,7 +773,7 @@ namespace detail {
 
         no operator<<(const std::ostream&, const any_t&);
 
-        template <typename T>
+        template <class T>
         struct has_insertion_operator
         {
             static std::ostream& s;
@@ -782,7 +782,7 @@ namespace detail {
         };
     } // namespace has_insertion_operator_impl
 
-    template <typename T>
+    template <class T>
     struct has_insertion_operator : has_insertion_operator_impl::has_insertion_operator<T>
     {};
 
@@ -794,7 +794,7 @@ namespace detail {
     template <bool C>
     struct StringMakerBase
     {
-        template <typename T>
+        template <class T>
         static String convert(const DOCTEST_REF_WRAP(T)) {
             return "{?}";
         }
@@ -803,7 +803,7 @@ namespace detail {
     template <>
     struct StringMakerBase<true>
     {
-        template <typename T>
+        template <class T>
         static String convert(const DOCTEST_REF_WRAP(T) in) {
             *getTlsOss() << in;
             return getTlsOssResult();
@@ -812,22 +812,22 @@ namespace detail {
 
     DOCTEST_INTERFACE String rawMemoryToString(const void* object, unsigned size);
 
-    template <typename T>
+    template <class T>
     String rawMemoryToString(const DOCTEST_REF_WRAP(T) object) {
         return rawMemoryToString(&object, sizeof(object));
     }
 
-    template <typename T>
+    template <class T>
     const char* type_to_string() {
         return "<>";
     }
 } // namespace detail
 
-template <typename T>
+template <class T>
 struct StringMaker : public detail::StringMakerBase<detail::has_insertion_operator<T>::value>
 {};
 
-template <typename T>
+template <class T>
 struct StringMaker<T*>
 {
     template <typename U>
@@ -848,7 +848,7 @@ struct StringMaker<R C::*>
     }
 };
 
-template <typename T>
+template <class T>
 String toString(const DOCTEST_REF_WRAP(T) value) {
     return StringMaker<T>::convert(value);
 }
@@ -888,7 +888,7 @@ public:
     Approx operator()(double value) const;
 
 #ifdef DOCTEST_CONFIG_INCLUDE_TYPE_TRAITS
-    template <typename T>
+    template <class T>
     explicit Approx(const T& value,
                     typename detail::enable_if<std::is_constructible<double, T>::value>::type* =
                             static_cast<T*>(nullptr)) {
@@ -899,7 +899,7 @@ public:
     Approx& epsilon(double newEpsilon);
 
 #ifdef DOCTEST_CONFIG_INCLUDE_TYPE_TRAITS
-    template <typename T>
+    template <class T>
     typename detail::enable_if<std::is_constructible<double, T>::value, Approx&>::type epsilon(
             const T& newEpsilon) {
         m_epsilon = static_cast<double>(newEpsilon);
@@ -910,7 +910,7 @@ public:
     Approx& scale(double newScale);
 
 #ifdef DOCTEST_CONFIG_INCLUDE_TYPE_TRAITS
-    template <typename T>
+    template <class T>
     typename detail::enable_if<std::is_constructible<double, T>::value, Approx&>::type scale(
             const T& newScale) {
         m_scale = static_cast<double>(newScale);
@@ -936,7 +936,7 @@ public:
 
 #ifdef DOCTEST_CONFIG_INCLUDE_TYPE_TRAITS
 #define DOCTEST_APPROX_PREFIX \
-    template <typename T> friend typename detail::enable_if<std::is_constructible<double, T>::value, bool>::type
+    template <class T> friend typename detail::enable_if<std::is_constructible<double, T>::value, bool>::type
 
     DOCTEST_APPROX_PREFIX operator==(const T& lhs, const Approx& rhs) { return operator==(double(lhs), rhs); }
     DOCTEST_APPROX_PREFIX operator==(const Approx& lhs, const T& rhs) { return operator==(rhs, lhs); }
@@ -1222,7 +1222,7 @@ namespace detail {
 
         TestSuite& operator*(const char* in);
 
-        template <typename T>
+        template <class T>
         TestSuite& operator*(const T& in) {
             in.fill(*this);
             return *this;
@@ -1250,7 +1250,7 @@ namespace detail {
 
         TestCase& operator*(const char* in);
 
-        template <typename T>
+        template <class T>
         TestCase& operator*(const T& in) {
             in.fill(*this);
             return *this;
@@ -1403,7 +1403,7 @@ namespace detail {
         virtual bool translate(String&) const = 0;
     };
 
-    template <typename T>
+    template <class T>
     class ExceptionTranslator : public IExceptionTranslator //!OCLINT destructor of virtual class
     {
     public:
@@ -1433,7 +1433,7 @@ namespace detail {
     template <bool C>
     struct StringStreamBase
     {
-        template <typename T>
+        template <class T>
         static void convert(std::ostream* s, const T& in) {
             *s << toString(in);
         }
@@ -1446,17 +1446,17 @@ namespace detail {
     template <>
     struct StringStreamBase<true>
     {
-        template <typename T>
+        template <class T>
         static void convert(std::ostream* s, const T& in) {
             *s << in;
         }
     };
 
-    template <typename T>
+    template <class T>
     struct StringStream : public StringStreamBase<has_insertion_operator<T>::value>
     {};
 
-    template <typename T>
+    template <class T>
     void toStream(std::ostream* s, const T& value) {
         StringStream<T>::convert(s, value);
     }
@@ -1513,7 +1513,7 @@ namespace detail {
         MessageBuilder() = delete;
         ~MessageBuilder();
 
-        template <typename T>
+        template <class T>
         MessageBuilder& operator<<(const T& in) {
             toStream(m_stream, in);
             return *this;
@@ -1547,7 +1547,7 @@ DOCTEST_DEFINE_DECORATOR(may_fail, bool, true);
 DOCTEST_DEFINE_DECORATOR(should_fail, bool, true);
 DOCTEST_DEFINE_DECORATOR(expected_failures, int, 0);
 
-template <typename T>
+template <class T>
 int registerExceptionTranslator(String (*translateFunction)(T)) {
     DOCTEST_CLANG_SUPPRESS_WARNING_WITH_PUSH("-Wexit-time-destructors")
     static detail::ExceptionTranslator<T> exceptionTranslator(translateFunction);
@@ -1566,7 +1566,7 @@ DOCTEST_INTERFACE doctest::detail::TestSuite& getCurrentTestSuite();
 
 namespace doctest {
 #else  // DOCTEST_CONFIG_DISABLE
-template <typename T>
+template <class T>
 int registerExceptionTranslator(String (*)(T)) {
     return 0;
 }
@@ -1815,7 +1815,7 @@ int registerReporter(const char* name, int priority, bool isReporter) {
     typedef int DOCTEST_ANONYMOUS(_DOCTEST_ANON_FOR_SEMICOLON_)
 
 #define DOCTEST_TEST_CASE_TEMPLATE_DEFINE_IMPL(dec, T, iter, func)                                 \
-    template <typename T>                                                                          \
+    template <class T>                                                                          \
     static void func();                                                                            \
     namespace {                                                                                    \
         template <typename Tuple>                                                                  \
@@ -1838,7 +1838,7 @@ int registerReporter(const char* name, int priority, bool isReporter) {
             iter(const char*, unsigned, int) {}                                                    \
         };                                                                                         \
     }                                                                                              \
-    template <typename T>                                                                          \
+    template <class T>                                                                          \
     static void func()
 
 #define DOCTEST_TEST_CASE_TEMPLATE_DEFINE(dec, T, id)                                              \
@@ -1861,7 +1861,7 @@ int registerReporter(const char* name, int priority, bool isReporter) {
 #define DOCTEST_TEST_CASE_TEMPLATE_IMPL(dec, T, anon, ...)                                         \
     DOCTEST_TEST_CASE_TEMPLATE_DEFINE_IMPL(dec, T, DOCTEST_CAT(anon, ITERATOR), anon);             \
     DOCTEST_TEST_CASE_TEMPLATE_INSTANTIATE_IMPL(anon, anon, std::tuple<__VA_ARGS__>)               \
-    template <typename T>                                                                          \
+    template <class T>                                                                          \
     static void anon()
 
 #define DOCTEST_TEST_CASE_TEMPLATE(dec, T, ...)                                                    \
@@ -2803,7 +2803,7 @@ namespace {
         }
     }
 
-    template <typename T>
+    template <class T>
     String fpToString(T value, int precision) {
         std::ostringstream oss;
         oss << std::setprecision(precision) << std::fixed << value;

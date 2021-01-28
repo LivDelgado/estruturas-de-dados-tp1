@@ -1,28 +1,36 @@
 #include "estruturas/nodo.h"
 
-template <typename T> 
-class Lista {
-    private:
-        Nodo* primeiroItem;
-        Nodo* ultimoItem;
-        int numeroElementos;
+#ifndef LISTA
+#define LISTA
 
-        Nodo* posicionar(int posicao);
+namespace extracaoZ {
 
-    public:
-        Lista();
-        ~Lista();
+    template <class T>
+    class Lista {
+        private:
+            Nodo<T>* primeiroItem;
+            Nodo<T>* ultimoItem;
+            int numeroElementos;
 
-        T obterItem(int posicao);
-        T obterPrimeiroItem();
-        T obterUltimoItem()
+            Nodo<T>* posicionar(int posicao);
 
-        void inserirItem(T item, int posicao);
-        void inserirItemPrimeiraPosicao(T item);
-        void inserirItemUltimaPosicao(T item);
+        public:
+            Lista();
+            ~Lista();
 
-        void imprimirLista();
-        void imprimirListaReversa();
-        void limparLista();
+            T* obterItem(int posicao);
+            T* obterPrimeiroItem();
+            T* obterUltimoItem();
 
+            void inserirItem(T item, int posicao);
+            void inserirItemPrimeiraPosicao(T item);
+            void inserirItemUltimaPosicao(T item);
+
+            void imprimirLista();
+            void imprimirListaReversa();
+            void limparLista();
+    };
+    
 }
+
+#endif
