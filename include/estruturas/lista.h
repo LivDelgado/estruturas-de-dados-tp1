@@ -37,4 +37,6 @@ namespace extracaoZ {
     
 }
 
+#include "estruturas/lista.tcc"
+
 #endif

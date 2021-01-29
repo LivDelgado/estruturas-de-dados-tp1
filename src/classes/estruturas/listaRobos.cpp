@@ -3,6 +3,4 @@
 
 #include "planeta/robo.h"
 
-#include <iostream>
-
 using namespace extracaoZ;

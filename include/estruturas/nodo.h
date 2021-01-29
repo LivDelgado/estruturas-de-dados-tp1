@@ -30,4 +30,6 @@ namespace extracaoZ {
     };
 }
 
+#include "estruturas/nodo.tcc"
+
 #endif

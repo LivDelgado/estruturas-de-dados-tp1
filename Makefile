@@ -1,38 +1,46 @@
-CC := g++
-SRCDIR := src
-TARGET := run.out
-CFLAGS := -std=c++11 -g -Wall
-# TSTDIR := test
-OBJDIR := build
-BINDIR := bin
+#
+# Copyright 2021 Alysson Ribeiro da Silva - Federal University of Minas Gerais
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy 
+# of this software and associated documentation files (the "Software"), to deal 
+# in the Software without restriction, including without limitation the rights 
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
+# of the Software, and to permit persons to whom the Software is furnished to do 
+# so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all 
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+# PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
 
-MAIN := main
-# TESTER := program/tester.cpp
+# cc and flags
+CC = g++
+CXXFLAGS = -std=c++11 -g -Wall
+#CXXFLAGS = -std=c++11 -O3 -Wall
 
-SRCEXT := cpp
-SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-OBJECTS := $(patsubst $(SRCDIR)/%,$(OBJDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-# TSTSOURCES := $(shell find $(TSTDIR) -type f -name *.$(SRCEXT))
+# folders
+INCLUDE_FOLDER = ./include/
+BIN_FOLDER = ./bin/
+OBJ_FOLDER = ./obj/
+SRC_FOLDER = ./src/
 
-CFLAGS := -g -Wall -O3 -std=c++14
-INC := -I include/ -I third_party/
+# all sources, objs, and header files
+MAIN = main
+TARGET = run.out
+SRC = $(wildcard $(SRC_FOLDER)*.cpp)
+OBJ = $(patsubst $(SRC_FOLDER)%.cpp, $(OBJ_FOLDER)%.o, $(SRC))
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+$(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.cpp
+	$(CC) $(CXXFLAGS) -c $< -o $@ -I$(INCLUDE_FOLDER)
 
-main: $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(BINDIR)$(TARGET) $(OBJ)
-
-tests: $(OBJECTS)
-	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) $(INC) $(TESTER) $(TSTSOURCES) $^ -o $(BINDIR)/tester
-	$(BINDIR)/tester
-
-all: main
-
-run: main
-	$(BINDIR)/main
+all: $(OBJ)
+	$(CC) $(CXXFLAGS) -o $(BIN_FOLDER)$(TARGET) $(OBJ)
 
 clean:
-	@rm -rf $(OBJDIR)* $(BINDIR)*
+	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)*
