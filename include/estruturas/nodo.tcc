@@ -42,6 +42,3 @@ template <class T>
 T Nodo<T>::getItem() {
     return this->item;
 }
-
-// tipos de nodo que serão utilizados no programa
-template class Nodo<Robo>;

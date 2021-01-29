@@ -11,6 +11,15 @@ Robo::Robo() {
     this->numeroAlienigenasDerrotados = 0;
 }
 
+Robo::Robo(int indice) {
+    this->indice = indice;
+    this->emMissao = false;
+    this->posicaoX = 0;
+    this->posicaoY = 0;
+    this->numeroItensColetados = 0;
+    this->numeroAlienigenasDerrotados = 0;
+}
+
 Robo::~Robo() {}
 
 int Robo::obterIndice() {

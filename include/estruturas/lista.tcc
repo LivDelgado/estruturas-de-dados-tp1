@@ -184,6 +184,3 @@ Nodo<T>* Lista<T>::removerUltimoItem() {
     return auxiliar;
 }
 
-
-// tipos de lista que serão utilizados no programa
-template class Lista<Robo>;
