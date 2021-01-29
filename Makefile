@@ -29,17 +29,14 @@ INCLUDE_FOLDER = ./include/
 BIN_FOLDER = ./bin/
 OBJ_FOLDER = ./obj/
 SRC_FOLDER = ./src/extracaoZ/
-# TEST_FOLDER = ./src/testes/
 
 SRCEXT := cpp
 
 # all sources, objs, and header files
 MAIN = Main
-# TESTER := testes/tester.cpp
 TARGET = run.out
 SRC = $(wildcard $(SRC_FOLDER)*.$(SRCEXT))
-OBJ = $(patsubst $(SRC_FOLDER)%,$(OBJ_FOLDER)/%,$(SRC:.$(SRCEXT)=.o))
-# TSTSOURCES := $(shell find $(TEST_FOLDER) -type f -name *.$(SRCEXT))
+OBJ = $(patsubst $(SRC_FOLDER)%.$(SRCEXT), $(OBJ_FOLDER)%.o, $(SRC))
 
 $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.$(SRCEXT)
 	@mkdir -p $(@D)
@@ -50,8 +47,3 @@ all: $(OBJ)
 
 clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)*
-
-# tests: $(OBJ)
-# 	@mkdir -p $(BIN_FOLDER)
-# 	$(CC) $(CXXFLAGS) -I$(INCLUDE_FOLDER) ./src/$(TESTER) $(TSTSOURCES) $^ -o $(BIN_FOLDER)tester
-# 	$(BIN_FOLDER)/tester
