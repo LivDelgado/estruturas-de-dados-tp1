@@ -1,5 +1,7 @@
 #include "estruturas/lista.h"
 #include "estruturas/nodo.h"
+
+#include "planeta/robo.h"
 #include <iostream>
 
 using namespace extracaoZ;
@@ -140,5 +142,46 @@ void Lista<T>::limparLista() {
 }
 
 
+template <class T>
+Nodo<T>* Lista<T>::removerItem(int posicao) {
+    if (this->numeroElementos == 0) {
+        throw "LISTA VAZIA";
+    }
+    if (posicao == 1) {
+        return this->removerPrimeiroItem();
+    } else if (posicao == this->numeroElementos) {
+        return this->removerPrimeiroItem();
+    } else {
+        Nodo<T>* elementoAtual = this->posicionar(posicao);
+        elementoAtual->proximoItem->itemAnterior = elementoAtual->itemAnterior;
+        elementoAtual->itemAnterior->proximoItem = elementoAtual->proximoItem;
+        return elementoAtual;
+    }
+
+}
+
+template <class T>
+Nodo<T>* Lista<T>::removerPrimeiroItem() {
+    if (this->numeroElementos == 0) {
+        throw "LISTA VAZIA";
+    }
+    Nodo<T>* auxiliar = this->primeiroItem;
+    this->primeiroItem = auxiliar->proximoItem;
+    this->primeiroItem->itemAnterior = NULL;
+    return auxiliar;
+}
+
+template <class T>
+Nodo<T>* Lista<T>::removerUltimoItem() {
+    if (this->numeroElementos == 0) {
+        throw "LISTA VAZIA";
+    }
+    Nodo<T>* auxiliar = this->ultimoItem;
+    this->ultimoItem = auxiliar->itemAnterior;
+    this->ultimoItem->proximoItem = NULL;
+    return auxiliar;
+}
+
+
 // tipos de lista que serão utilizados no programa
-template class Lista<int>;
+template class Lista<Robo>;

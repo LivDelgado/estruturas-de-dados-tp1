@@ -7,7 +7,7 @@ namespace extracaoZ {
 
     template <class T>
     class Lista {
-        private:
+        protected:
             Nodo<T>* primeiroItem;
             Nodo<T>* ultimoItem;
             int numeroElementos;
@@ -25,6 +25,10 @@ namespace extracaoZ {
             void inserirItem(T item, int posicao);
             void inserirItemPrimeiraPosicao(T item);
             void inserirItemUltimaPosicao(T item);
+
+            Nodo<T>* removerItem(int posicao);
+            Nodo<T>* removerPrimeiroItem();
+            Nodo<T>* removerUltimoItem();
 
             void imprimirLista();
             void imprimirListaReversa();
