@@ -13,6 +13,6 @@ int main(int argc, char* argv[]) {
     system("clear");
 
     cout << "Hello world";
-    ListaRobos* lista = new ListaRobos();
-    lista->inserirItemPrimeiraPosicao(Robo());
+    ListaRobos lista = ListaRobos();
+    lista.inserirItemPrimeiraPosicao(Robo());
 }

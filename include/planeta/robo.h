@@ -1,3 +1,7 @@
+#include "estruturas/listaOrdensComando.h"
+#include "estruturas/pilhaOrdensComando.h"
+#include "fluxoJogo/ordemComando.h"
+
 #ifndef ROBO
 #define ROBO
 
@@ -10,8 +14,8 @@ namespace extracaoZ {
             int posicaoY;
             int numeroItensColetados;
             int numeroAlienigenasDerrotados;
-            // Lista<OrdemComando> ordensComando;
-            // Pilha<OrdemComando> historicoExecucao;
+            ListaOrdensComando ordensComando;
+            PilhaOrdensComando historicoExecucao;
         public:
             Robo();
             Robo(int indice);
@@ -31,8 +35,8 @@ namespace extracaoZ {
             void mudarPosicao(int x, int y);
             void roboEmMissao(bool emMissao);
 
-            // void adicionarOrdemDeComando(OrdemComando);
-            // void adicionarOrdemDeComandoPrioritaria(OrdemComando);
+            void adicionarOrdemDeComando(OrdemComando);
+            void adicionarOrdemDeComandoPrioritaria(OrdemComando);
     };
 }
 
