@@ -3,6 +3,7 @@
 
 #include "planeta/robo.h"
 #include <iostream>
+#include <cstddef>
 
 using namespace extracaoZ;
 
@@ -22,15 +23,15 @@ Lista<T>::~Lista() {
 
 template <class T>
 Nodo<T>* Lista<T>::posicionar(int posicao) {
-    int contador = 1
+    int contador = 1;
     
     if (posicao > this->numeroElementos || posicao <= 0) {
-        throw "Não existe essa posição na lista!"
+        throw "Não existe essa posição na lista!";
     }
     
-    Nodo* itemAtual = this->primeiroItem;
+    Nodo<T>* itemAtual = this->primeiroItem;
     while (contador < posicao) {
-        itemAtual = itemAtual->proximoItem;
+        itemAtual = itemAtual->getProximoItem();
         contador++;
     }
 
@@ -42,20 +43,20 @@ T* Lista<T>::obterItem(int posicao) {
     if (this->numeroElementos == 0) {
         throw "Lista vazia";
     }
-    Nodo* elemento = this.posicionar(posicao);
-    return elemento->item;
+    Nodo<T>* elemento = this.posicionar(posicao);
+    return elemento->getItem();
 }
 
 template <class T>
 T* Lista<T>::obterPrimeiroItem() {
-    Nodo* elemento = this->primeiroItem;
-    return elemento->item;
+    Nodo<T>* elemento = this->primeiroItem;
+    return elemento->getItem();
 }
 
 template <class T>
 T* Lista<T>::obterUltimoItem() {
-    Nodo* elemento = this->ultimoItem;
-    return elemento->item;
+    Nodo<T>* elemento = this->ultimoItem;
+    return elemento->getItem();
 }
 
 template <class T>
@@ -65,14 +66,14 @@ void Lista<T>::inserirItem(T item, int posicao) {
     } else if (posicao == 1) {
         this.inserirItemPrimeiraPosicao(item);
     } else {
-        Nodo* elemento = posicionar(posicao);
+        Nodo<T>* elemento = posicionar(posicao);
 
-        Nodo* elementoAnterior = elemento->itemAnterior;
-        Nodo novoElemento = new Nodo(item);
+        Nodo<T>* elementoAnterior = elemento->getItemAnterior();
+        Nodo<T>* novoElemento = new Nodo<T>(item);
 
-        novoElemento->proximoItem = elemento;
-        elementoAnterior->proximoItem = novoElemento;
-        elemento->itemAnterior = novoElemento;
+        novoElemento->setProximoItem(elemento);
+        elementoAnterior->setProximoItem(novoElemento);
+        elemento->setItemAnterior(novoElemento);
 
         numeroElementos++;
     }
@@ -80,18 +81,18 @@ void Lista<T>::inserirItem(T item, int posicao) {
 
 template <class T>
 void Lista<T>::inserirItemPrimeiraPosicao(T item) {
-    Nodo novoElemento = new Nodo(item);
+    Nodo<T>* novoElemento = new Nodo<T>(item);
 
     if (this->primeiroItem == NULL) {
         this->primeiroItem = novoElemento;
     } else {
-        Nodo* primeiroItemAtual = this->primeiroItem;
-        primeiroItemAtual->itemAnterior = novoElemento;
-        novoElemento->proximoItem = primeiroItemAtual;
+        Nodo<T>* primeiroItemAtual = this->primeiroItem;
+        primeiroItemAtual->setItemAnterior(novoElemento);
+        novoElemento->setProximoItem(primeiroItemAtual);
         this->primeiroItem = novoElemento;
     }
 
-    if (novoElemento->proximoItem == NULL) {
+    if (novoElemento->getProximoItem() == NULL) {
         this->ultimoItem = novoElemento;
     }
 
@@ -100,13 +101,13 @@ void Lista<T>::inserirItemPrimeiraPosicao(T item) {
 
 template <class T>
 void Lista<T>::inserirItemUltimaPosicao(T item) {
-    Nodo novoElemento = new Nodo(item)
+    Nodo<T>* novoElemento = new Nodo<T>(item)
 
     if (this->numeroElementos == 0) {
         this.inserirItemPrimeiraPosicao(item);
     } else {
-        this->ultimoItem->proximoItem = novoElemento;
-        novoElemento->itemAnterior = this->ultimoItem;
+        this->ultimoItem->setProximoItem(novoElemento);
+        novoElemento->setItemAnterior(this->ultimoItem);
         this->ultimoItem = novoElemento;
     }
 
@@ -115,28 +116,28 @@ void Lista<T>::inserirItemUltimaPosicao(T item) {
 
 template <class T>
 void Lista<T>::imprimirLista() {
-    Nodo* elementoAtual = this->primeiroItem;
-    while (elementoAtual->proximoItem) {
-        std::cin >> elementoAtual->item;
-        elementoAtual = elementoAtual->proximoItem;
+    Nodo<T>* elementoAtual = this->primeiroItem;
+    while (elementoAtual->getProximoItem()) {
+        std::cin >> elementoAtual->getItem();
+        elementoAtual = elementoAtual->getProximoItem();
     }
 }
 
 template <class T>
 void Lista<T>::imprimirListaReversa() {
-    Nodo* elementoAtual = this->ultimoItem;
-    while (elementoAtual->itemAnterior) {
-        std::cin >> elementoAtual->item;
-        elementoAtual = elementoAtual->itemAnterior;
+    Nodo<T>* elementoAtual = this->ultimoItem;
+    while (elementoAtual->getItemAnterior()) {
+        std::cin >> elementoAtual->getItem();
+        elementoAtual = elementoAtual->getItemAnterior();
     }
 }
 
 template <class T>
 void Lista<T>::limparLista() {
-    Nodo* elementoAtual = this->ultimoItem;
+    Nodo<T>* elementoAtual = this->ultimoItem;
     while (elementoAtual != NULL) {
-        Nodo* aux = elementoAtual;
-        elementoAtual = elementoAtual->itemAnterior;
+        Nodo<T>* aux = elementoAtual;
+        elementoAtual = elementoAtual->getItemAnterior();
         delete aux;
     }
 }
@@ -153,8 +154,8 @@ Nodo<T>* Lista<T>::removerItem(int posicao) {
         return this->removerPrimeiroItem();
     } else {
         Nodo<T>* elementoAtual = this->posicionar(posicao);
-        elementoAtual->proximoItem->itemAnterior = elementoAtual->itemAnterior;
-        elementoAtual->itemAnterior->proximoItem = elementoAtual->proximoItem;
+        elementoAtual->getProximoItem()->setItemAnterior(elementoAtual->getItemAnterior());
+        elementoAtual->getItemAnterior()->setProximoItem(elementoAtual->getProximoItem);
         return elementoAtual;
     }
 
@@ -166,8 +167,8 @@ Nodo<T>* Lista<T>::removerPrimeiroItem() {
         throw "LISTA VAZIA";
     }
     Nodo<T>* auxiliar = this->primeiroItem;
-    this->primeiroItem = auxiliar->proximoItem;
-    this->primeiroItem->itemAnterior = NULL;
+    this->primeiroItem = auxiliar->getProximoItem();
+    this->primeiroItem->setItemAnterior(NULL);
     return auxiliar;
 }
 
@@ -177,8 +178,8 @@ Nodo<T>* Lista<T>::removerUltimoItem() {
         throw "LISTA VAZIA";
     }
     Nodo<T>* auxiliar = this->ultimoItem;
-    this->ultimoItem = auxiliar->itemAnterior;
-    this->ultimoItem->proximoItem = NULL;
+    this->ultimoItem = auxiliar->getItemAnterior();
+    this->ultimoItem->setProximoItem(NULL);
     return auxiliar;
 }
 

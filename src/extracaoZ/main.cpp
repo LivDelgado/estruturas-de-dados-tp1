@@ -6,13 +6,10 @@
 
 #include "planeta/robo.h"
 
-using namespace std;
 using namespace extracaoZ;
 
 int main(int argc, char* argv[]) {
-    system("clear");
-
-    cout << "Hello world";
+    std::cout << "Hello world";
     ListaRobos lista = ListaRobos();
     lista.inserirItemPrimeiraPosicao(Robo());
 }

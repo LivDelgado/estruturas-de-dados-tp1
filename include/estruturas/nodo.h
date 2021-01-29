@@ -17,6 +17,16 @@ namespace extracaoZ {
             Nodo(T item);
             ~Nodo();
 
+            void setProximoItem(Nodo<T>* proximoItem);
+            void setItemAnterior(Nodo<T>* itemAnterior);
+
+            void setItem(T item);
+            
+            Nodo<T>* getProximoItem();
+            Nodo<T>* getItemAnterior();
+
+            T getItem();
+
     };
 }
 
