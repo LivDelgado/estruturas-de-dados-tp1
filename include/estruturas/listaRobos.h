@@ -7,11 +7,10 @@
 namespace extracaoZ {
 
     class ListaRobos : public Lista<Robo> {
-        public:
-            ListaRobos();
-            ~ListaRobos();
+        using Lista<Robo>::Lista;
 
-            // Robo* procurarRobo(int indiceRobo)
+        public:
+            Robo* procurarRobo(int indiceRobo);
     };
     
 }
