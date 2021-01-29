@@ -18,9 +18,9 @@ namespace extracaoZ {
             Lista();
             ~Lista();
 
-            T* obterItem(int posicao);
-            T* obterPrimeiroItem();
-            T* obterUltimoItem();
+            T obterItem(int posicao);
+            T obterPrimeiroItem();
+            T obterUltimoItem();
 
             void inserirItem(T item, int posicao);
             void inserirItemPrimeiraPosicao(T item);

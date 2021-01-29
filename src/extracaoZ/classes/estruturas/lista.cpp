@@ -16,7 +16,7 @@ Lista<T>::Lista() {
 
 template <class T>
 Lista<T>::~Lista() {
-    this.limparLista();
+    this->limparLista();
     delete this->ultimoItem;
     delete this->primeiroItem;
 }
@@ -39,22 +39,22 @@ Nodo<T>* Lista<T>::posicionar(int posicao) {
 }
 
 template <class T>
-T* Lista<T>::obterItem(int posicao) {
+T Lista<T>::obterItem(int posicao) {
     if (this->numeroElementos == 0) {
         throw "Lista vazia";
     }
-    Nodo<T>* elemento = this.posicionar(posicao);
+    Nodo<T>* elemento = this->posicionar(posicao);
     return elemento->getItem();
 }
 
 template <class T>
-T* Lista<T>::obterPrimeiroItem() {
+T Lista<T>::obterPrimeiroItem() {
     Nodo<T>* elemento = this->primeiroItem;
     return elemento->getItem();
 }
 
 template <class T>
-T* Lista<T>::obterUltimoItem() {
+T Lista<T>::obterUltimoItem() {
     Nodo<T>* elemento = this->ultimoItem;
     return elemento->getItem();
 }
@@ -62,9 +62,9 @@ T* Lista<T>::obterUltimoItem() {
 template <class T>
 void Lista<T>::inserirItem(T item, int posicao) {
     if (posicao == this->numeroElementos) {
-        this.inserirItemUltimaPosicao(item);
+        this->inserirItemUltimaPosicao(item);
     } else if (posicao == 1) {
-        this.inserirItemPrimeiraPosicao(item);
+        this->inserirItemPrimeiraPosicao(item);
     } else {
         Nodo<T>* elemento = posicionar(posicao);
 
@@ -101,10 +101,10 @@ void Lista<T>::inserirItemPrimeiraPosicao(T item) {
 
 template <class T>
 void Lista<T>::inserirItemUltimaPosicao(T item) {
-    Nodo<T>* novoElemento = new Nodo<T>(item)
+    Nodo<T>* novoElemento = new Nodo<T>(item);
 
     if (this->numeroElementos == 0) {
-        this.inserirItemPrimeiraPosicao(item);
+        this->inserirItemPrimeiraPosicao(item);
     } else {
         this->ultimoItem->setProximoItem(novoElemento);
         novoElemento->setItemAnterior(this->ultimoItem);
@@ -155,7 +155,7 @@ Nodo<T>* Lista<T>::removerItem(int posicao) {
     } else {
         Nodo<T>* elementoAtual = this->posicionar(posicao);
         elementoAtual->getProximoItem()->setItemAnterior(elementoAtual->getItemAnterior());
-        elementoAtual->getItemAnterior()->setProximoItem(elementoAtual->getProximoItem);
+        elementoAtual->getItemAnterior()->setProximoItem(elementoAtual->getProximoItem());
         return elementoAtual;
     }
 
