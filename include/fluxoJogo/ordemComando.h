@@ -1,7 +1,8 @@
-#include "enums/acao.h"
-
 #ifndef ORDEM
 #define ORDEM
+
+#include "enums/acao.h"
+#include <string>
 
 namespace extracaoZ {
     class OrdemComando {
@@ -9,14 +10,18 @@ namespace extracaoZ {
             Acao acao;
             int posicaoX;
             int posicaoY;
+            std::string comando;
+
         public:
             OrdemComando();
             ~OrdemComando();
 
-            int obterPosicaoX();
-            int obterPosicaoY();
-            void mudarPosicao(int x, int y);
-            Acao obterAcao();
+            int setPosicaoX();
+            int setPosicaoY();
+            void setPosicao(int x, int y);
+            Acao getAcao();
+            std::string getComando();
+            void setComando(std::string comando);
     };
 }
 

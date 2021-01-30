@@ -1,25 +1,24 @@
 #include "estruturas/nodoOrdemComando.h"
 #include "fluxoJogo/ordemComando.h"
 
-#ifndef PILHA_ORDENS
-#define PILHA_ORDENS
+#ifndef FILA_ORDENS
+#define FILA_ORDENS
 
 namespace extracaoZ {
 
-    class PilhaOrdensComando {
+    class FilaOrdensComando {
         private:
             NodoOrdemComando* primeiraOrdem;
             NodoOrdemComando* ultimaOrdem;
 
         public:
-            PilhaOrdensComando();
-            ~PilhaOrdensComando();
+            FilaOrdensComando();
+            ~FilaOrdensComando();
 
-            void empilharOrdemComando(OrdemComando);
-            OrdemComando desempilharOrdemComando();
+            void enfileirarOrdemComando(OrdemComando);
+            OrdemComando desenfileirarOrdemComando();
 
             void limpar();
-
     };
     
 }

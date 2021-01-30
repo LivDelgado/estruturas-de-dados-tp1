@@ -1,6 +1,6 @@
-#include "estruturas/listaRobos.h"
 #include "planeta/mapa.h"
 #include "planeta/base.h"
+#include "planeta/robo.h"
 
 #ifndef PLANETA
 #define PLANETA
@@ -8,7 +8,7 @@
 namespace extracaoZ {
     class Planeta {
         private:
-            ListaRobos robos;
+            Robo* robos;
             Base base;
             Mapa mapa;
         public:
@@ -16,7 +16,6 @@ namespace extracaoZ {
             ~Planeta();
 
             bool verificarRoboEmExploracao(int indiceRobo);
-            ListaRobos listarRobosEmExploracao();
             Mapa obterMapa();
     };
 }

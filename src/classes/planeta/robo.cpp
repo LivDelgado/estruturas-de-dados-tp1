@@ -30,11 +30,11 @@ bool Robo::obterEmMissao() {
     return this->emMissao;
 }
 
-int Robo::obterPosicaoX() {
+int Robo::setPosicaoX() {
     return this->posicaoX;
 }
 
-int Robo::obterPosicaoY() {
+int Robo::setPosicaoY() {
     return this->posicaoY;
 }
 
@@ -64,7 +64,7 @@ void Robo::zerarNumeroAlienigenasDerrotados() {
     this->numeroItensColetados = 0;
 }
 
-void Robo::mudarPosicao(int x, int y) {
+void Robo::setPosicao(int x, int y) {
     this->posicaoX = x;
     this->posicaoY = y;
 }
