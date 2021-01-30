@@ -21,29 +21,26 @@
 
 # cc and flags
 CC = g++
-CXXFLAGS = -std=c++11 -g -Wall
+CXXFLAGS = -std=c++11 -g -Wall -I include/
 #CXXFLAGS = -std=c++11 -O3 -Wall
 
 # folders
-INCLUDE_FOLDER = ./include/
+INCLUDE_FOLDER = -I include/ -I third_party/
 BIN_FOLDER = ./bin/
 OBJ_FOLDER = ./obj/
-SRC_FOLDER = ./src/extracaoZ/
-# TEST_FOLDER = ./src/testes/
+SRC_FOLDER = ./src/
 
 SRCEXT := cpp
 
 # all sources, objs, and header files
-MAIN = Main
-# TESTER := testes/tester.cpp
+MAIN = main
 TARGET = run.out
-SRC = $(wildcard $(SRC_FOLDER)*.$(SRCEXT))
-OBJ = $(patsubst $(SRC_FOLDER)%,$(OBJ_FOLDER)/%,$(SRC:.$(SRCEXT)=.o))
-# TSTSOURCES := $(shell find $(TEST_FOLDER) -type f -name *.$(SRCEXT))
+SRC = $(shell find $(SRC_FOLDER) -type f -name *.$(SRCEXT))
+OBJ = $(patsubst $(SRC_FOLDER)/%.cpp, $(OBJ_FOLDER)%.o, $(SRC))
 
-$(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.$(SRCEXT)
+$(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.$(SRCEXT)
 	@mkdir -p $(@D)
-	$(CC) $(CXXFLAGS) -c $< -o $@ -I$(INCLUDE_FOLDER)
+	$(CC) $(CXXFLAGS) $(INCLUDE_FOLDER) -c -o $@ $<
 
 all: $(OBJ)
 	$(CC) $(CXXFLAGS) -o $(BIN_FOLDER)$(TARGET) $(OBJ)
@@ -51,7 +48,5 @@ all: $(OBJ)
 clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)*
 
-# tests: $(OBJ)
-# 	@mkdir -p $(BIN_FOLDER)
-# 	$(CC) $(CXXFLAGS) -I$(INCLUDE_FOLDER) ./src/$(TESTER) $(TSTSOURCES) $^ -o $(BIN_FOLDER)tester
-# 	$(BIN_FOLDER)/tester
+run: all
+	$(BIN_FOLDER)/run.out

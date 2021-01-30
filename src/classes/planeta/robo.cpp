@@ -1,13 +1,18 @@
-#include "estruturas/listaRobos.h"
-#include "estruturas/lista.h"
-
 #include "planeta/robo.h"
-#include <iostream>
 
 using namespace extracaoZ;
 
 Robo::Robo() {
     this->indice = 0;
+    this->emMissao = false;
+    this->posicaoX = 0;
+    this->posicaoY = 0;
+    this->numeroItensColetados = 0;
+    this->numeroAlienigenasDerrotados = 0;
+}
+
+Robo::Robo(int indice) {
+    this->indice = indice;
     this->emMissao = false;
     this->posicaoX = 0;
     this->posicaoY = 0;
@@ -25,11 +30,11 @@ bool Robo::obterEmMissao() {
     return this->emMissao;
 }
 
-int Robo::obterPosicaoX() {
+int Robo::setPosicaoX() {
     return this->posicaoX;
 }
 
-int Robo::obterPosicaoY() {
+int Robo::setPosicaoY() {
     return this->posicaoY;
 }
 
@@ -59,7 +64,7 @@ void Robo::zerarNumeroAlienigenasDerrotados() {
     this->numeroItensColetados = 0;
 }
 
-void Robo::mudarPosicao(int x, int y) {
+void Robo::setPosicao(int x, int y) {
     this->posicaoX = x;
     this->posicaoY = y;
 }
