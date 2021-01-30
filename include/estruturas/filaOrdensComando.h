@@ -1,8 +1,8 @@
-#include "estruturas/nodoOrdemComando.h"
-#include "fluxoJogo/ordemComando.h"
-
 #ifndef FILA_ORDENS
 #define FILA_ORDENS
+
+#include "estruturas/nodoOrdemComando.h"
+#include "fluxoJogo/ordemComando.h"
 
 namespace extracaoZ {
 
@@ -11,12 +11,14 @@ namespace extracaoZ {
             NodoOrdemComando* primeiraOrdem;
             NodoOrdemComando* ultimaOrdem;
 
+            bool filaVazia();
+
         public:
             FilaOrdensComando();
             ~FilaOrdensComando();
 
-            void enfileirarOrdemComando(OrdemComando);
-            OrdemComando desenfileirarOrdemComando();
+            void enfileirarOrdemComando(OrdemComando* ordem);
+            OrdemComando* desenfileirarOrdemComando();
 
             void limpar();
     };

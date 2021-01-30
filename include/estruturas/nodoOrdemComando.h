@@ -7,19 +7,22 @@ namespace extracaoZ {
     class NodoOrdemComando {
         private:
             NodoOrdemComando* proximaOrdem;
+            NodoOrdemComando* ordemAnterior;
 
-            OrdemComando ordem;
+            OrdemComando* ordem;
 
         public:
             NodoOrdemComando();
-            NodoOrdemComando(OrdemComando ordem);
+            NodoOrdemComando(OrdemComando* ordem);
             ~NodoOrdemComando();
 
             void setProximaOrdem(NodoOrdemComando* proximaOrdem);
-            void setOrdemComando(OrdemComando ordem);
+            void setOrdemAnterior(NodoOrdemComando* ordemAnterior);
+            void setOrdemComando(OrdemComando* ordem);
             
             NodoOrdemComando* getProximaOrdem();
-            OrdemComando getOrdemComando();
+            NodoOrdemComando* getOrdemAnterior();
+            OrdemComando* getOrdemComando();
 
     };
 }

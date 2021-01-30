@@ -3,28 +3,42 @@
 using namespace extracaoZ;
 
 
-NodoOrdemComando::NodoOrdemComando(OrdemComando ordem) {
-    this->ordem = ordem;
-    this->proximaOrdem = NULL;
+NodoOrdemComando::NodoOrdemComando() {
+    this->ordem = nullptr;
+    this->proximaOrdem = nullptr;
 }
 
+NodoOrdemComando::NodoOrdemComando(OrdemComando* ordem) {
+    this->ordem = ordem;
+    this->proximaOrdem = nullptr;
+}
+
+NodoOrdemComando::~NodoOrdemComando() {
+    delete this->ordem;
+    delete this->ordemAnterior;
+    delete this->proximaOrdem;
+}
 
 void NodoOrdemComando::setProximaOrdem(NodoOrdemComando* proximaOrdem) {
     this->proximaOrdem = proximaOrdem;
 }
 
-
-void NodoOrdemComando::setOrdemComando(OrdemComando ordem) {
-    this->ordem = ordem;
+void NodoOrdemComando::setOrdemAnterior(NodoOrdemComando* ordemAnterior) {
+    this->ordemAnterior = ordemAnterior;
 }
 
-
+void NodoOrdemComando::setOrdemComando(OrdemComando* ordem) {
+    this->ordem = ordem;
+}
 
 NodoOrdemComando* NodoOrdemComando::getProximaOrdem() {
     return this->proximaOrdem;
 }
 
+NodoOrdemComando* NodoOrdemComando::getOrdemAnterior() {
+    return this->ordemAnterior;
+}
 
-OrdemComando NodoOrdemComando::getOrdemComando() {
+OrdemComando* NodoOrdemComando::getOrdemComando() {
     return this->ordem;
 }
