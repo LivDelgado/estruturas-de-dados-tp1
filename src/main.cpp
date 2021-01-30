@@ -1,5 +1,4 @@
 #include <cstdlib>
-
 #include <iostream>
 
 #include "estruturas/filaOrdensComando.h"
@@ -33,8 +32,4 @@ int main(int argc, char* argv[]) {
         std::cout << excecao << std::endl;
         return 0;
     }
-
-    //extracaoZ::FilaOrdensComando* fila = new extracaoZ::FilaOrdensComando();
-    //extracaoZ::OrdemComando* ordem = new extracaoZ::OrdemComando();
-    //fila->enfileirarOrdemComando(ordem);
 }
