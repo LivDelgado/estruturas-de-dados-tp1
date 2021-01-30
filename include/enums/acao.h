@@ -6,7 +6,11 @@ namespace extracaoZ {
 	enum Acao {
 		MOVER,
 		COLETAR,
-		ELIMINAR
+		ELIMINAR,
+		ATIVAR,
+		EXECUTAR,
+		RELATORIO,
+		RETORNAR
 	};
 }
 

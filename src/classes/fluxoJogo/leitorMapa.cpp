@@ -29,8 +29,9 @@ Mapa* LeitorMapa::criarMapa(std::string* linhasArquivo) {
     }
 
     std::string primeiraLinhaArquivo = linhasArquivo[0];
-    std::string x_str = primeiraLinhaArquivo.substr(0, primeiraLinhaArquivo.find(' '));
-    std::string y_str = primeiraLinhaArquivo.substr(primeiraLinhaArquivo.find(DELIMITADOR)+1);
+    int posicaoDelimitador = primeiraLinhaArquivo.find(DELIMITADOR);
+    std::string x_str = primeiraLinhaArquivo.substr(0, posicaoDelimitador);
+    std::string y_str = primeiraLinhaArquivo.substr(posicaoDelimitador+1);
 
     int x = std::stoi(x_str);
     int y = std::stoi(y_str);
@@ -48,7 +49,7 @@ Mapa* LeitorMapa::criarMapa(std::string* linhasArquivo) {
         int contadorColunas = 0;
 
         while (getline(linha, caracterePosicaoMapa, ' ')) {
-            if (contadorColunas >= y) {
+            if (caracterePosicaoMapa.empty() || contadorColunas >= y) {
                 break;
             }
 
