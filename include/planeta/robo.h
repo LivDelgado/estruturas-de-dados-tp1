@@ -15,8 +15,8 @@ namespace extracaoZ {
             int numeroItensColetados;
             int numeroAlienigenasDerrotados;
             FilaOrdensComando ordensComando;
-            FilaOrdensComando ordensComandoPrioritarios;
-            PilhaOrdensComando historicoExecucao;
+            PilhaOrdensComando ordensComandoPrioritarios;
+            FilaOrdensComando historicoExecucao;
 
         public:
             Robo();
