@@ -1,22 +1,34 @@
+#ifndef DECOD_COMANDO
+#define DECOD_COMANDO
+
+#include "fluxoJogo/leitorArquivos.h"
 #include "fluxoJogo/comando.h"
 
 #include <string>
 
-#ifndef DECOD_COMANDO
-#define DECOD_COMANDO
 
 namespace extracaoZ {
     class DecodificadorComandos {
         private:
-            Comando interpretarComando(std::string);
+            LeitorArquivos* leitor;
+            int quantidadeComandos;
+
+            Comando* interpretarComando(std::string linhaComando);
+            Comando* interpretarComandos(std::string* linhasComando);
+            std::string* lerArquivo(std::string caminhoArquivo);
+
+            void decodificarInstrucao(Comando &comando, std::string instrucao);
+            void decodificarRobo(Comando &comando, std::string robo);
+            void decodificarPosicao(Comando &comando, std::string posicao);
+
+            Acao converterAcaoParaEnum(std::string instrucao);
             
         public:
             DecodificadorComandos();
             ~DecodificadorComandos();
 
-            std::string* lerArquivo(std::string caminhoArquivo);
-            Comando* interpretarComandos(std::string*);
-            
+            Comando* decodificarComandos(std::string caminhoArquivo);
+            int getQuantidadeComandos();          
     };
 }
 
