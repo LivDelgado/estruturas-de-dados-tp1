@@ -1,10 +1,6 @@
-#include "estruturas/lista.h"
 #include "estruturas/nodo.h"
 
-#include "planeta/robo.h"
-
 #include <iostream>
-#include <cstddef>
 
 using namespace extracaoZ;
 
@@ -119,7 +115,7 @@ template <class T>
 void Lista<T>::imprimirLista() {
     Nodo<T>* elementoAtual = this->primeiroItem;
     while (elementoAtual->getProximoItem()) {
-        std::cin >> elementoAtual->getItem();
+        std::cout << elementoAtual->getItem();
         elementoAtual = elementoAtual->getProximoItem();
     }
 }
@@ -128,7 +124,7 @@ template <class T>
 void Lista<T>::imprimirListaReversa() {
     Nodo<T>* elementoAtual = this->ultimoItem;
     while (elementoAtual->getItemAnterior()) {
-        std::cin >> elementoAtual->getItem();
+        std::cout << elementoAtual->getItem();
         elementoAtual = elementoAtual->getItemAnterior();
     }
 }
@@ -183,4 +179,3 @@ Nodo<T>* Lista<T>::removerUltimoItem() {
     this->ultimoItem->setProximoItem(NULL);
     return auxiliar;
 }
-

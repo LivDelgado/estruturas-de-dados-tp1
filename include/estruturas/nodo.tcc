@@ -1,7 +1,4 @@
 #include "estruturas/nodo.h"
-#include "planeta/robo.h"
-
-#include <cstddef>
 
 using namespace extracaoZ;
 

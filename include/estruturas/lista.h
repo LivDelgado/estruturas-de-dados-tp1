@@ -1,4 +1,5 @@
 #include "estruturas/nodo.h"
+#include "estruturas/lista.tcc"
 
 #ifndef LISTA
 #define LISTA
@@ -36,7 +37,5 @@ namespace extracaoZ {
     };
     
 }
-
-#include "estruturas/lista.tcc"
 
 #endif

@@ -1,8 +1,8 @@
-#include "estruturas/lista.h"
-#include "planeta/robo.h"
-
 #ifndef LISTA_ROBOS
 #define LISTA_ROBOS
+
+#include "planeta/robo.h"
+#include "estruturas/lista.h"
 
 namespace extracaoZ {
 

@@ -10,8 +10,6 @@ namespace extracaoZ {
 
             T item;
 
-            // friend class Lista;
-
         public:
             Nodo();
             Nodo(T item);
