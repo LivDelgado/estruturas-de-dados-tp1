@@ -1,3 +1,4 @@
+#include "fluxoJogo/leitorArquivos.h"
 #include "planeta/mapa.h"
 
 #include <string>
@@ -8,13 +9,15 @@
 namespace extracaoZ {
     class LeitorMapa {
         private:
+            LeitorArquivos* leitor;
+            std::string* lerArquivo(std::string caminhoArquivo);
+            Mapa* criarMapa(std::string* linhasArquivo);
 
         public:
             LeitorMapa();
             ~LeitorMapa();
 
-            std::string* lerArquivo(std::string caminhoArquivo);
-            Mapa criarMapa(std::string*);
+            Mapa* inicializarMapa(std::string caminhoArquivo);
     };
 }
 

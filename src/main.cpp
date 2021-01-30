@@ -4,7 +4,8 @@
 
 #include "estruturas/filaOrdensComando.h"
 #include "fluxoJogo/ordemComando.h"
-#include "fluxoJogo/leitorArquivos.h"
+#include "fluxoJogo/leitorMapa.h"
+#include "planeta/mapa.h"
 
 int main(int argc, char* argv[]) {
     std::system("clear");
@@ -18,11 +19,13 @@ int main(int argc, char* argv[]) {
     std::string caminhoArquivoMapa = argv[1];
     //std::string caminhoArquivoComandos = argv[2];
 
-    extracaoZ::LeitorArquivos* leitor = new extracaoZ::LeitorArquivos();
-
-    std::string* linhasArquivoMapa = leitor->lerArquivo(caminhoArquivoMapa);
-    std::cout << linhasArquivoMapa[0] << std::endl;
-    std::cout << "Número de linhas: " << leitor->getNumeroLinhasArquivo() << std::endl;
+    extracaoZ::LeitorMapa* leitorMapa = new extracaoZ::LeitorMapa();
+    try {
+        extracaoZ::Mapa* mapa = leitorMapa->inicializarMapa(caminhoArquivoMapa);
+    } catch (char const* excecao){
+        std::cout << excecao << std::endl;
+        return 0;
+    }
 
     //extracaoZ::FilaOrdensComando* fila = new extracaoZ::FilaOrdensComando();
     //extracaoZ::OrdemComando* ordem = new extracaoZ::OrdemComando();
