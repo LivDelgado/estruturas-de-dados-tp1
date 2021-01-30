@@ -4,13 +4,20 @@
 namespace extracaoZ {
     class Mapa {
         private:
-            int** mapa;
+            int tamanhoX;
+            int tamanhoY;
+            char** mapa;
+
+            void verificarPosicaoValida(int x, int y);
+            char obterCaractereNaPosicao(int x, int y);
         public:
             Mapa(int x, int y);
             ~Mapa();
 
-            int** criarMapa(int x, int n);
-            bool verificarCoordenadaTemRobo(int x, int y);
+            char** criarMapa(int x, int y);
+            void setCaractereMapa(int x, int y, char caractere);
+
+            bool verificarCoordenadaTemRecurso(int x, int y);
             bool verificarCoordenadaTemObstaculo(int x, int y);
             bool verificarCoordenadaTemAlien(int x, int y);
             bool verificarCoordenadaVazia(int x, int y);

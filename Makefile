@@ -47,6 +47,3 @@ all: $(OBJ)
 
 clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)*
-
-run: all
-	$(BIN_FOLDER)/run.out
