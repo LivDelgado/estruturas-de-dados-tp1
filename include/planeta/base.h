@@ -8,7 +8,7 @@ namespace extracaoZ {
         private:
             int numeroItensColetados;
             int numeroAlienigenasDerrotados;
-            FilaOrdensComando historicoExecucao;
+            FilaOrdensComando* historicoExecucao;
         
         public:
             Base();

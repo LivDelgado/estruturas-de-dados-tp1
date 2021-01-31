@@ -14,9 +14,9 @@ namespace extracaoZ {
             int posicaoY;
             int numeroItensColetados;
             int numeroAlienigenasDerrotados;
-            FilaOrdensComando ordensComando;
-            PilhaOrdensComando ordensComandoPrioritarios;
-            FilaOrdensComando historicoExecucao;
+            FilaOrdensComando* ordensComando;
+            PilhaOrdensComando* ordensComandoPrioritarios;
+            FilaOrdensComando* historicoExecucao;
 
         public:
             Robo();
@@ -37,10 +37,16 @@ namespace extracaoZ {
             void setPosicao(int x, int y);
             void roboEmMissao(bool emMissao);
 
-            void adicionarOrdemDeComando(OrdemComando);
-            void adicionarOrdemDeComandoPrioritaria(OrdemComando);
+            void adicionarOrdemDeComando(OrdemComando* ordemComando);
+            void adicionarOrdemDeComandoPrioritaria(OrdemComando* ordemComando);
+            void adicionarOrdemDeComandoNoHistorico(OrdemComando* ordemComando);
+
+            FilaOrdensComando* getOrdensComando();
+            PilhaOrdensComando* getOrdensComandoPrioritarios();
+            FilaOrdensComando* getHistoricoExecucao();
     };
 }
 
+#include "fluxoJogo/executorComandos.h"
 
 #endif

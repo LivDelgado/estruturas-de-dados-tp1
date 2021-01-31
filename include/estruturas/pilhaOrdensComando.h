@@ -10,7 +10,6 @@ namespace extracaoZ {
         private:
             NodoOrdemComando* ultimaOrdem;
 
-            bool pilhaVazia();
 
         public:
             PilhaOrdensComando();
@@ -19,6 +18,7 @@ namespace extracaoZ {
             void empilharOrdemComando(OrdemComando* ordem);
             OrdemComando* desempilharOrdemComando();
 
+            bool pilhaVazia();
             void limpar();
     };
     
