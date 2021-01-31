@@ -9,14 +9,15 @@ namespace extracaoZ {
     class Planeta {
         private:
             Robo* robos;
-            Base base;
-            Mapa mapa;
+            Base* base;
+            Mapa* mapa;
         public:
             Planeta();
             ~Planeta();
 
+            Robo* obterRobo(int indiceRobo);
             bool verificarRoboEmExploracao(int indiceRobo);
-            Mapa obterMapa();
+            Mapa* obterMapa();
     };
 }
 

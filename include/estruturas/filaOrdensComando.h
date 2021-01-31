@@ -11,7 +11,6 @@ namespace extracaoZ {
             NodoOrdemComando* primeiraOrdem;
             NodoOrdemComando* ultimaOrdem;
 
-            bool filaVazia();
 
         public:
             FilaOrdensComando();
@@ -20,6 +19,7 @@ namespace extracaoZ {
             void enfileirarOrdemComando(OrdemComando* ordem);
             OrdemComando* desenfileirarOrdemComando();
 
+            bool filaVazia();
             void limpar();
     };
     
