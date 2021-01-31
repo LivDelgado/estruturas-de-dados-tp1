@@ -1,6 +1,6 @@
 #include "estruturas/filaOrdensComando.h"
 #include "estruturas/pilhaOrdensComando.h"
-#include "fluxoJogo/ordemComando.h"
+#include "fluxoExtracao/ordemComando.h"
 
 #ifndef ROBO
 #define ROBO
@@ -50,6 +50,6 @@ namespace extracaoZ {
     };
 }
 
-#include "fluxoJogo/executorComandos.h"
+#include "fluxoExtracao/executorComandos.h"
 
 #endif

@@ -1,6 +1,6 @@
-#include "fluxoJogo/decodificadorComandos.h"
-#include "fluxoJogo/ordemComando.h"
-#include "fluxoJogo/comando.h"
+#include "fluxoExtracao/decodificadorComandos.h"
+#include "fluxoExtracao/ordemComando.h"
+#include "fluxoExtracao/comando.h"
 #include "planeta/planeta.h"
 
 #include <string>

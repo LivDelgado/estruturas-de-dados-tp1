@@ -1,8 +1,8 @@
 #ifndef EXPLORADOR
 #define EXPLORADOR
 
-#include "fluxoJogo/leitorMapa.h"
-#include "fluxoJogo/executorComandos.h"
+#include "fluxoExtracao/leitorMapa.h"
+#include "fluxoExtracao/executorComandos.h"
 #include "planeta/planeta.h"
 
 namespace extracaoZ {

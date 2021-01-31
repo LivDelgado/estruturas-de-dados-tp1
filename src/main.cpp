@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "fluxoJogo/explorador.h"
+#include "fluxoExtracao/explorador.h"
 
 int main(int argc, char* argv[]) {
     std::system("clear");

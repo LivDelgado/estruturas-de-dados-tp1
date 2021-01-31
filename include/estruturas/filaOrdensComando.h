@@ -2,7 +2,7 @@
 #define FILA_ORDENS
 
 #include "estruturas/nodoOrdemComando.h"
-#include "fluxoJogo/ordemComando.h"
+#include "fluxoExtracao/ordemComando.h"
 
 namespace extracaoZ {
 

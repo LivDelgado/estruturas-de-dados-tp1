@@ -1,7 +1,7 @@
-#include "fluxoJogo/executorComandos.h"
-#include "fluxoJogo/decodificadorComandos.h"
-#include "fluxoJogo/ordemComando.h"
-#include "fluxoJogo/comando.h"
+#include "fluxoExtracao/executorComandos.h"
+#include "fluxoExtracao/decodificadorComandos.h"
+#include "fluxoExtracao/ordemComando.h"
+#include "fluxoExtracao/comando.h"
 #include "enums/acao.h"
 
 #include "estruturas/pilhaOrdensComando.h"
