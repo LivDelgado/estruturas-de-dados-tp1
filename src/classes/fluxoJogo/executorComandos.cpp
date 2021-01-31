@@ -3,6 +3,7 @@
 #include "fluxoJogo/ordemComando.h"
 #include "fluxoJogo/comando.h"
 #include "enums/acao.h"
+#include "constantes/mapa.h"
 
 #include <iostream>
 
@@ -53,7 +54,7 @@ void ExecutorComandos::executarOrdemDireta(Comando* comando) {
             this->ativarRobo(comando);
             break;
         case EXECUTAR:
-            this->executarListaComandosRobo(comando);
+            this->verificarExecutarListaComandosRobo(comando);
             break;
         case RELATORIO:
             this->imprimirRelatorioRobo(comando);
@@ -63,6 +64,88 @@ void ExecutorComandos::executarOrdemDireta(Comando* comando) {
         default:
             throw "Ordem de direta inválida";
     }
+}
+
+void ExecutorComandos::ativarRobo(Comando* comando) {
+    Robo* robo = this->planeta->obterRobo(comando->getIndiceRobo());
+    Base* base = this->planeta->obterBase();
+
+    std::string mensagem = "Base: ROBO " + robo->obterIndice();
+
+    if (robo->obterEmMissao()) {
+        mensagem += " JA ESTA EM MISSAO";
+    } else {
+        robo->setPosicao(0, 0);
+        robo->roboEmMissao(true);
+        mensagem += " SAIU EM MISSAO";
+    }
+
+    OrdemComando* ordem = this->converterComandoEmOrdem(comando);
+    ordem->setComando(mensagem);
+
+    base->adicionarOrdemDeComandoNoHistorico(ordem);
+
+    std::cout << mensagem << std::endl;
+
+}
+
+void ExecutorComandos::imprimirRelatorioRobo(Comando* comando) {
+    Robo* robo = this->planeta->obterRobo(comando->getIndiceRobo());
+
+    while (!robo->getHistoricoExecucao()->filaVazia()) {
+        OrdemComando* ordem = robo->getHistoricoExecucao()->desenfileirarOrdemComando();
+
+        std::cout << ordem->getComando() << std::endl;
+    }
+}
+
+void ExecutorComandos::retornarRoboParaBase(Comando* comando) {
+    Robo* robo = this->planeta->obterRobo(comando->getIndiceRobo());
+    Base* base = this->planeta->obterBase();
+
+    std::string mensagem = "Base: ROBO " + robo->obterIndice();
+    OrdemComando* ordem = this->converterComandoEmOrdem(comando);
+
+    if (this->planeta->verificarRoboEmExploracao(robo->obterIndice())) {
+        base->adicionarItensColetados(robo->obterNumeroItensColetados());
+        base->adicionarAlienigenasDerrotados(robo->obterNumeroAlienigenasDerrotados());
+
+        mensagem += " RETORNOU ALIENS " + robo->obterNumeroAlienigenasDerrotados();
+        mensagem += " RECURSOS " + robo->obterNumeroItensColetados();
+
+        robo->zerarNumeroItensColetados();
+        robo->zerarNumeroAlienigenasDerrotados();
+        robo->setPosicao(0, 0);
+        robo->limparHistorico();
+    } else {
+        mensagem += " NAO ESTA EM MISSAO";
+    }
+
+    ordem->setComando(mensagem);
+    base->adicionarOrdemDeComandoNoHistorico(ordem);
+
+    std::cout << mensagem << std::endl;
+}
+
+
+void ExecutorComandos::verificarExecutarListaComandosRobo(Comando* comando) {
+    Base* base = this->planeta->obterBase();
+
+    if (!planeta->verificarRoboEmExploracao(comando->getIndiceRobo())) {
+        OrdemComando* ordem = this->converterComandoEmOrdem(comando);
+
+        std::string mensagem = "Base: ROBO " + comando->getIndiceRobo();
+        mensagem += " NAO ESTA EM MISSAO";
+
+        ordem->setComando(mensagem);
+        base->adicionarOrdemDeComandoNoHistorico(ordem);
+
+        std::cout << mensagem << std::endl;
+
+    } else {
+        this->executarListaComandosRobo(comando);
+    }
+
 }
 
 void ExecutorComandos::executarListaComandosRobo(Comando* comando) {
@@ -96,7 +179,6 @@ void ExecutorComandos::executarOrdemComando(OrdemComando* ordem, int indiceRobo)
     }
 }
 
-
 void ExecutorComandos::moverRobo(OrdemComando* comando, Robo* robo) {
     std::string mensagem = "ROBO " + robo->obterIndice();
     if (this->planeta->obterMapa()->verificarCoordenadaTemObstaculo(comando->getPosicaoX(), comando->getPosicaoY())) {
@@ -109,5 +191,48 @@ void ExecutorComandos::moverRobo(OrdemComando* comando, Robo* robo) {
     comando->setComando(mensagem);
 
     robo->adicionarOrdemDeComandoNoHistorico(comando);
+}
+
+void ExecutorComandos::roboColetarRecurso(OrdemComando* comando, Robo* robo) {
+    std::string mensagem = "ROBO " + robo->obterIndice();
+    if (this->planeta->obterMapa()->verificarCoordenadaTemRecurso(comando->getPosicaoX(), comando->getPosicaoY())) {
+        mensagem += ": IMPOSSIVEL COLETAR RECURSOS EM ";
+    } else {
+        robo->incrementarNumeroItensColetados();
+        mensagem += ": RECURSOS COLETADOS EM ";
+    }
+    mensagem += '(' + comando->getPosicaoX() + ',' + comando->getPosicaoY() + '\n';
+    comando->setComando(mensagem);
+
+    robo->adicionarOrdemDeComandoNoHistorico(comando);
+
+    this->planeta->obterMapa()->setCaractereMapa(comando->getPosicaoX(), comando->getPosicaoY(), VAZIO);
+}
+
+void ExecutorComandos::roboEliminarAlien(OrdemComando* comando, Robo* robo) {
+    std::string mensagem = "ROBO " + robo->obterIndice();
+    if (this->planeta->obterMapa()->verificarCoordenadaTemAlien(comando->getPosicaoX(), comando->getPosicaoY())) {
+        mensagem += ": IMPOSSIVEL ELIMINAR ALIEN EM ";
+    } else {
+        robo->incrementarNumeroAlienigenasDerrotados();
+        mensagem += ": ALIEN ELIMINADO EM ";
+    }
+    mensagem += '(' + comando->getPosicaoX() + ',' + comando->getPosicaoY() + '\n';
+    comando->setComando(mensagem);
+
+    robo->adicionarOrdemDeComandoNoHistorico(comando);
+
+    this->planeta->obterMapa()->setCaractereMapa(comando->getPosicaoX(), comando->getPosicaoY(), VAZIO);
+}
+
+OrdemComando* ExecutorComandos::converterComandoEmOrdem(Comando* comando) {
+    OrdemComando* ordem = new OrdemComando(
+        comando->getAcao(),
+        "",
+        comando->getPosicaoX(),
+        comando->getPosicaoY()
+    );
+
+    return ordem;
 }
 

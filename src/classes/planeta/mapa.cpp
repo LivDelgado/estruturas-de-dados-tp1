@@ -1,15 +1,10 @@
 #include "planeta/mapa.h"
+#include "constantes/mapa.h"
 
 #include<stdio.h> 
 #include<stdlib.h> 
 
 using namespace extracaoZ;
-
-#define RECURSO 'R'
-#define OBSTACULO 'O'
-#define ALIEN_HOSTIL 'H'
-#define VAZIO '.'
-#define BASE 'B'
 
 Mapa::Mapa(int x, int y) {
     this->tamanhoX = x;

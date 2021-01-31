@@ -24,6 +24,7 @@ namespace extracaoZ {
             void imprimirRelatorioRobo(Comando* comando);
             void retornarRoboParaBase(Comando* comando);
 
+            void verificarExecutarListaComandosRobo(Comando* comando);
             void executarListaComandosRobo(Comando* comando);
 
             OrdemComando* converterComandoEmOrdem(Comando* comando);
@@ -33,6 +34,7 @@ namespace extracaoZ {
             void moverRobo(OrdemComando* comando, Robo* robo);
             void roboColetarRecurso(OrdemComando* comando, Robo* robo);
             void roboEliminarAlien(OrdemComando* comando, Robo* robo);
+
         public:
             ExecutorComandos(Planeta* planeta);
             ~ExecutorComandos();
