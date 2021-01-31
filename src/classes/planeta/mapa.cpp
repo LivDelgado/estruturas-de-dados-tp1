@@ -1,10 +1,15 @@
 #include "planeta/mapa.h"
-#include "constantes/mapa.h"
 
-#include<stdio.h> 
-#include<stdlib.h> 
+#include <stdio.h> 
+#include <stdlib.h> 
 
 using namespace extracaoZ;
+
+#define RECURSO 'R'
+#define OBSTACULO 'O'
+#define ALIEN_HOSTIL 'H'
+#define VAZIO '.'
+#define BASE 'B'
 
 Mapa::Mapa(int x, int y) {
     this->tamanhoX = x;
@@ -26,6 +31,11 @@ char** Mapa::criarMapa(int x, int y) {
     }
     this-> mapa = matriz;
     return this->mapa;
+}
+
+char Mapa::getCaractereMapa(int x, int y) {
+    this->verificarPosicaoValida(x, y);
+    return this->mapa[x][y];
 }
 
 void Mapa::verificarPosicaoValida(int x, int y) {
@@ -67,5 +77,9 @@ bool Mapa::verificarCoordenadaVazia(int x, int y) {
 bool Mapa::verificarCoordenadaBase(int x, int y) {
     char caractere = this->obterCaractereNaPosicao(x, y);
     return caractere == BASE || (x == 0 && y == 0);
+}
+
+void Mapa::esvaziarPosicao(int x, int y) {
+    this->setCaractereMapa(x, y, VAZIO);
 }
 

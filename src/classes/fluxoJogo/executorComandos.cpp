@@ -3,7 +3,8 @@
 #include "fluxoJogo/ordemComando.h"
 #include "fluxoJogo/comando.h"
 #include "enums/acao.h"
-#include "constantes/mapa.h"
+
+#include "estruturas/pilhaOrdensComando.h"
 
 #include <iostream>
 
@@ -74,7 +75,7 @@ void ExecutorComandos::ativarRobo(Comando* comando) {
     Robo* robo = this->planeta->obterRobo(comando->getIndiceRobo());
     Base* base = this->planeta->obterBase();
 
-    std::string mensagem = "Base: ROBO " + std::to_string(robo->obterIndice());
+    std::string mensagem = "BASE: ROBO " + std::to_string(robo->obterIndice());
 
     if (robo->obterEmMissao()) {
         mensagem += " JA ESTA EM MISSAO";
@@ -95,10 +96,16 @@ void ExecutorComandos::ativarRobo(Comando* comando) {
 void ExecutorComandos::imprimirRelatorioRobo(Comando* comando) {
     Robo* robo = this->planeta->obterRobo(comando->getIndiceRobo());
 
+    PilhaOrdensComando* pilhaAuxiliar = new PilhaOrdensComando();
+
     while (!robo->getHistoricoExecucao()->filaVazia()) {
         OrdemComando* ordem = robo->getHistoricoExecucao()->desenfileirarOrdemComando();
-
+        pilhaAuxiliar->empilharOrdemComando(ordem);
         std::cout << ordem->getComando();
+    }
+
+    while(!pilhaAuxiliar->pilhaVazia()) {
+        robo->adicionarOrdemDeComandoNoHistorico(pilhaAuxiliar->desempilharOrdemComando());
     }
 }
 
@@ -106,7 +113,7 @@ void ExecutorComandos::retornarRoboParaBase(Comando* comando) {
     Robo* robo = this->planeta->obterRobo(comando->getIndiceRobo());
     Base* base = this->planeta->obterBase();
 
-    std::string mensagem = "Base: ROBO " + std::to_string(robo->obterIndice());
+    std::string mensagem = "BASE: ROBO " + std::to_string(robo->obterIndice());
     OrdemComando* ordem = this->converterComandoEmOrdem(comando);
 
     if (this->planeta->verificarRoboEmExploracao(robo->obterIndice())) {
@@ -119,6 +126,8 @@ void ExecutorComandos::retornarRoboParaBase(Comando* comando) {
         robo->zerarNumeroItensColetados();
         robo->zerarNumeroAlienigenasDerrotados();
         robo->setPosicao(0, 0);
+        robo->roboEmMissao(false);
+
         robo->limparHistorico();
     } else {
         mensagem += " NAO ESTA EM MISSAO";
@@ -136,7 +145,7 @@ void ExecutorComandos::verificarExecutarListaComandosRobo(Comando* comando) {
     if (!planeta->verificarRoboEmExploracao(comando->getIndiceRobo())) {
         OrdemComando* ordem = this->converterComandoEmOrdem(comando);
 
-        std::string mensagem = "Base: ROBO " + std::to_string(comando->getIndiceRobo());
+        std::string mensagem = "BASE: ROBO " + std::to_string(comando->getIndiceRobo());
         mensagem += " NAO ESTA EM MISSAO";
 
         ordem->setComando(mensagem);
@@ -200,11 +209,14 @@ void ExecutorComandos::moverRobo(OrdemComando* comando, Robo* robo) {
 void ExecutorComandos::roboColetarRecurso(OrdemComando* comando, Robo* robo) {
     std::string mensagem = "ROBO " + std::to_string(robo->obterIndice());
 
-    if (this->planeta->obterMapa()->verificarCoordenadaTemRecurso(comando->getPosicaoX(), comando->getPosicaoY())) {
+    Mapa* mapa = this->planeta->obterMapa();
+
+    if (!mapa->verificarCoordenadaTemRecurso(robo->getPosicaoX(), robo->getPosicaoY())) {
         mensagem += ": IMPOSSIVEL COLETAR RECURSOS EM ";
     } else {
         robo->incrementarNumeroItensColetados();
         mensagem += ": RECURSOS COLETADOS EM ";
+        mapa->esvaziarPosicao(robo->getPosicaoX(), robo->getPosicaoY());
     }
 
     mensagem += '(' + std::to_string(robo->getPosicaoX()) + ',' + std::to_string(robo->getPosicaoY()) + ")\n";
@@ -212,25 +224,25 @@ void ExecutorComandos::roboColetarRecurso(OrdemComando* comando, Robo* robo) {
     comando->setComando(mensagem);
 
     robo->adicionarOrdemDeComandoNoHistorico(comando);
-
-    this->planeta->obterMapa()->setCaractereMapa(robo->getPosicaoX(), robo->getPosicaoY(), VAZIO);
 }
 
 void ExecutorComandos::roboEliminarAlien(OrdemComando* comando, Robo* robo) {
     std::string mensagem = "ROBO " + std::to_string(robo->obterIndice());
-    if (this->planeta->obterMapa()->verificarCoordenadaTemAlien(comando->getPosicaoX(), comando->getPosicaoY())) {
+
+    Mapa* mapa = this->planeta->obterMapa();
+
+    if (!mapa->verificarCoordenadaTemAlien(robo->getPosicaoX(), robo->getPosicaoY())) {
         mensagem += ": IMPOSSIVEL ELIMINAR ALIEN EM ";
     } else {
         robo->incrementarNumeroAlienigenasDerrotados();
         mensagem += ": ALIEN ELIMINADO EM ";
+        mapa->esvaziarPosicao(robo->getPosicaoX(), robo->getPosicaoY());
     }
     mensagem += '(' + std::to_string(robo->getPosicaoX()) + ',' + std::to_string(robo->getPosicaoY()) + ")\n";
     comando->setPosicao(robo->getPosicaoX(), robo->getPosicaoY());
     comando->setComando(mensagem);
 
     robo->adicionarOrdemDeComandoNoHistorico(comando);
-
-    this->planeta->obterMapa()->setCaractereMapa(comando->getPosicaoX(), comando->getPosicaoY(), VAZIO);
 }
 
 OrdemComando* ExecutorComandos::converterComandoEmOrdem(Comando* comando) {
