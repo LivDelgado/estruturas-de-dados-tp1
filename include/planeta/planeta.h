@@ -11,13 +11,20 @@ namespace extracaoZ {
             Robo* robos;
             Base* base;
             Mapa* mapa;
+
+            void inicializarRobos();
+
         public:
             Planeta();
             ~Planeta();
 
             Robo* obterRobo(int indiceRobo);
-            bool verificarRoboEmExploracao(int indiceRobo);
             Mapa* obterMapa();
+            Base* obterBase();
+
+            void setMapa(Mapa* mapa);
+
+            bool verificarRoboEmExploracao(int indiceRobo);
     };
 }
 

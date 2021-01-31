@@ -1,5 +1,5 @@
-#ifndef BASE
-#define BASE
+#ifndef BASE_PLANETA
+#define BASE_PLANETA
 
 #include "estruturas/filaOrdensComando.h"
 
@@ -19,6 +19,9 @@ namespace extracaoZ {
 
             int obterItensColetados();
             int obterAlienigenasDerrotados();
+
+            void adicionarOrdemDeComandoNoHistorico(OrdemComando* ordemComando);
+            FilaOrdensComando* getHistoricoExecucao();
     };
 }
 

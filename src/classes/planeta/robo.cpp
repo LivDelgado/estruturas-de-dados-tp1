@@ -107,3 +107,7 @@ FilaOrdensComando* Robo::getHistoricoExecucao() {
     return this->historicoExecucao;
 }
 
+void Robo::limparHistorico() {
+    this->historicoExecucao->limpar();
+}
+

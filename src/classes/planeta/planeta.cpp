@@ -1,5 +1,3 @@
-#include "fluxoJogo/leitorMapa.h"
-#include "fluxoJogo/executorComandos.h"
 #include "planeta/planeta.h"
 #include "planeta/mapa.h"
 #include "planeta/base.h"
@@ -11,10 +9,9 @@ using namespace extracaoZ;
 
 Planeta::Planeta() {
     this->robos = new Robo[NUMERO_ROBOS];
+    this->inicializarRobos();
     this->base = new Base();
     this->mapa = nullptr;
-//    LeitorMapa* leitor = new LeitorMapa();
-//    this->mapa = leitor->inicializarMapa()
 }
 
 Planeta::~Planeta() {
@@ -23,13 +20,14 @@ Planeta::~Planeta() {
     delete this->mapa;
 }
 
-Mapa* Planeta::obterMapa() {
-    return this->mapa;
+void Planeta::inicializarRobos() {
+    for (int i = 0; i < NUMERO_ROBOS; i++) {
+        this->robos[i] = *(new Robo());
+    }
 }
 
-bool Planeta::verificarRoboEmExploracao(int indiceRobo) {
-    Robo robo = this->robos[indiceRobo];
-    return robo.obterEmMissao();
+Mapa* Planeta::obterMapa() {
+    return this->mapa;
 }
 
 Robo* Planeta::obterRobo(int indiceRobo) {
@@ -37,4 +35,18 @@ Robo* Planeta::obterRobo(int indiceRobo) {
         throw "Esse robô não existe!";
     }
     return &this->robos[indiceRobo];
+}
+
+Base* Planeta::obterBase() {
+    return this->base;
+}
+
+
+void Planeta::setMapa(Mapa* mapa) {
+    this->mapa = mapa;
+}
+
+bool Planeta::verificarRoboEmExploracao(int indiceRobo) {
+    Robo robo = this->robos[indiceRobo];
+    return robo.obterEmMissao();
 }

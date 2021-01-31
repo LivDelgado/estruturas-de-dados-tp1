@@ -44,6 +44,8 @@ namespace extracaoZ {
             FilaOrdensComando* getOrdensComando();
             PilhaOrdensComando* getOrdensComandoPrioritarios();
             FilaOrdensComando* getHistoricoExecucao();
+
+            void limparHistorico();
     };
 }
 
