@@ -7,10 +7,8 @@
 #define LEITOR_MAPA
 
 namespace extracaoZ {
-    class LeitorMapa {
+    class LeitorMapa : LeitorArquivos {
         private:
-            LeitorArquivos* leitor;
-            std::string* lerArquivo(std::string caminhoArquivo);
             Mapa* criarMapa(std::string* linhasArquivo);
 
         public:

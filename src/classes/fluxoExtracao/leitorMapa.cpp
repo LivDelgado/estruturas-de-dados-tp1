@@ -10,19 +10,12 @@ using namespace extracaoZ;
 #define MAPA_INVALIDO "Mapa inválido!"
 #define DELIMITADOR ' '
 
-LeitorMapa::LeitorMapa() {
-    this->leitor = new LeitorArquivos();
-}
-LeitorMapa::~LeitorMapa() {
-    delete this->leitor;
-}
+LeitorMapa::LeitorMapa() : LeitorArquivos() {}
 
-std::string* LeitorMapa::lerArquivo(std::string caminhoArquivo) {
-    return this->leitor->lerArquivo(caminhoArquivo);
-}
+LeitorMapa::~LeitorMapa() {}
 
 Mapa* LeitorMapa::criarMapa(std::string* linhasArquivo) {
-    int numeroLinhas = this->leitor->getNumeroLinhasArquivo();
+    int numeroLinhas = this->getNumeroLinhasArquivo();
 
     if (numeroLinhas < 2) {
         throw "Não é possível criar o mapa, estão faltando informações";

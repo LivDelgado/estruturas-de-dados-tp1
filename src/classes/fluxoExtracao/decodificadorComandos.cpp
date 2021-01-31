@@ -20,18 +20,11 @@
 #define DELIMITADOR_POSICAO ','
 using namespace extracaoZ;
 
-DecodificadorComandos::DecodificadorComandos() {
-    this->leitor = new LeitorArquivos();
+DecodificadorComandos::DecodificadorComandos() : LeitorArquivos() {
     this->quantidadeComandos = 0;
 }
 
-DecodificadorComandos::~DecodificadorComandos() {
-    delete this->leitor;
-}
-
-std::string* DecodificadorComandos::lerArquivo(std::string caminhoArquivo) {
-    return this->leitor->lerArquivo(caminhoArquivo);
-}
+DecodificadorComandos::~DecodificadorComandos() {}
 
 Comando* DecodificadorComandos::decodificarComandos(std::string caminhoArquivo) {
     std::string* linhasComando = this->lerArquivo(caminhoArquivo);
@@ -44,7 +37,7 @@ int DecodificadorComandos::getQuantidadeComandos() {
 }
 
 Comando* DecodificadorComandos::interpretarComandos(std::string* linhasComando) {
-    this->quantidadeComandos = this->leitor->getNumeroLinhasArquivo();
+    this->quantidadeComandos = this->getNumeroLinhasArquivo();
 
     if (this->quantidadeComandos <= 0) {
         throw "Não há nenhum comando a ser executado!";

@@ -8,14 +8,12 @@
 
 
 namespace extracaoZ {
-    class DecodificadorComandos {
+    class DecodificadorComandos : LeitorArquivos {
         private:
-            LeitorArquivos* leitor;
             int quantidadeComandos;
 
             Comando* interpretarComando(std::string linhaComando);
             Comando* interpretarComandos(std::string* linhasComando);
-            std::string* lerArquivo(std::string caminhoArquivo);
 
             void decodificarInstrucao(Comando &comando, std::string instrucao);
             void decodificarRobo(Comando &comando, std::string robo);
