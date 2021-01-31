@@ -4,11 +4,11 @@
 using namespace extracaoZ;
 
 PilhaOrdensComando::PilhaOrdensComando() {
-    this->limpar();
     this->ultimaOrdem = nullptr;
 }
 
 PilhaOrdensComando::~PilhaOrdensComando() {
+    this->limpar();
     delete this->ultimaOrdem;
 }
 

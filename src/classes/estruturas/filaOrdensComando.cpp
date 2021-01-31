@@ -47,7 +47,6 @@ void FilaOrdensComando::limpar() {
     NodoOrdemComando* atual = this->primeiraOrdem;
     while (atual != nullptr) {
         this->primeiraOrdem->setProximaOrdem(atual->getProximaOrdem());
-        delete atual;
         atual = this->primeiraOrdem->getProximaOrdem();
     }
 }

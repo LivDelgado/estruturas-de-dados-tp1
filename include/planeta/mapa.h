@@ -16,12 +16,16 @@ namespace extracaoZ {
 
             char** criarMapa(int x, int y);
             void setCaractereMapa(int x, int y, char caractere);
+            
+            char getCaractereMapa(int x, int y);
 
             bool verificarCoordenadaTemRecurso(int x, int y);
             bool verificarCoordenadaTemObstaculo(int x, int y);
             bool verificarCoordenadaTemAlien(int x, int y);
             bool verificarCoordenadaVazia(int x, int y);
             bool verificarCoordenadaBase(int x, int y);
+
+            void esvaziarPosicao(int x, int y);
     };
 }
 

@@ -65,7 +65,7 @@ void Robo::zerarNumeroItensColetados() {
 }
 
 void Robo::zerarNumeroAlienigenasDerrotados() {
-    this->numeroItensColetados = 0;
+    this->numeroAlienigenasDerrotados = 0;
 }
 
 void Robo::setPosicao(int x, int y) {
