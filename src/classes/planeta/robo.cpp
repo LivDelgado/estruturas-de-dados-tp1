@@ -93,3 +93,17 @@ void Robo::adicionarOrdemDeComandoPrioritaria(OrdemComando* ordemComando) {
 void Robo::adicionarOrdemDeComandoNoHistorico(OrdemComando* ordemComando) {
     this->historicoExecucao->enfileirarOrdemComando(ordemComando);
 }
+
+
+FilaOrdensComando* Robo::getOrdensComando() {
+    return this->ordensComando;
+}
+
+PilhaOrdensComando* Robo::getOrdensComandoPrioritarios() {
+    return this->ordensComandoPrioritarios;
+}
+
+FilaOrdensComando* Robo::getHistoricoExecucao() {
+    return this->historicoExecucao;
+}
+
