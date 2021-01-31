@@ -25,8 +25,8 @@ namespace extracaoZ {
 
             int obterIndice();
             bool obterEmMissao();
-            int setPosicaoX();
-            int setPosicaoY();
+            int getPosicaoX();
+            int getPosicaoY();
             int obterNumeroItensColetados();
             int obterNumeroAlienigenasDerrotados();
 
@@ -35,6 +35,7 @@ namespace extracaoZ {
             void zerarNumeroItensColetados();
             void zerarNumeroAlienigenasDerrotados();
             void setPosicao(int x, int y);
+            void setIndice(int indice);
             void roboEmMissao(bool emMissao);
 
             void adicionarOrdemDeComando(OrdemComando* ordemComando);

@@ -3,7 +3,6 @@
 #include "fluxoJogo/executorComandos.h"
 #include "planeta/planeta.h"
 
-
 using namespace extracaoZ;
 
 Explorador::Explorador() {
@@ -21,8 +20,5 @@ Explorador::~Explorador() {
 void Explorador::iniciarExtracaoZ(std::string caminhoArquivoMapa, std::string caminhoArquivoComandos) {
     Mapa* mapa = this->leitorMapa->inicializarMapa(caminhoArquivoMapa);
     this->planeta->setMapa(mapa);
-
-    delete mapa;
-
     this->executor->executarComandos(caminhoArquivoComandos);
 }

@@ -34,6 +34,8 @@ OrdemComando* PilhaOrdensComando::desempilharOrdemComando() {
     NodoOrdemComando* auxiliar = this->ultimaOrdem;
     this->ultimaOrdem = auxiliar->getOrdemAnterior();
 
+    auxiliar->setOrdemAnterior(nullptr);
+
     return auxiliar->getOrdemComando();
 }
 

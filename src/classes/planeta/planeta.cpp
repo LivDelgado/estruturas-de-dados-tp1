@@ -22,7 +22,7 @@ Planeta::~Planeta() {
 
 void Planeta::inicializarRobos() {
     for (int i = 0; i < NUMERO_ROBOS; i++) {
-        this->robos[i] = *(new Robo());
+        this->robos[i].setIndice(i);
     }
 }
 
@@ -34,7 +34,7 @@ Robo* Planeta::obterRobo(int indiceRobo) {
     if (indiceRobo < 0 || indiceRobo > NUMERO_ROBOS) {
         throw "Esse robô não existe!";
     }
-    return &this->robos[indiceRobo];
+    return &(this->robos[indiceRobo]);
 }
 
 Base* Planeta::obterBase() {
@@ -47,6 +47,5 @@ void Planeta::setMapa(Mapa* mapa) {
 }
 
 bool Planeta::verificarRoboEmExploracao(int indiceRobo) {
-    Robo robo = this->robos[indiceRobo];
-    return robo.obterEmMissao();
+    return this->robos[indiceRobo].obterEmMissao();
 }

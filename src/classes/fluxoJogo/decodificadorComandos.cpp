@@ -107,6 +107,10 @@ void DecodificadorComandos::decodificarInstrucao(Comando &comando, std::string i
     }
 
     comando.setAcao(this->converterAcaoParaEnum(instrucao));
+
+    if ((int)comando.getAcao() > 2) {
+        comando.setDireta(true);
+    }
 }
 
 Acao DecodificadorComandos::converterAcaoParaEnum(std::string instrucao) {

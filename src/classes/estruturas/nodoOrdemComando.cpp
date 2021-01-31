@@ -6,11 +6,13 @@ using namespace extracaoZ;
 NodoOrdemComando::NodoOrdemComando() {
     this->ordem = nullptr;
     this->proximaOrdem = nullptr;
+    this->ordemAnterior = nullptr;
 }
 
 NodoOrdemComando::NodoOrdemComando(OrdemComando* ordem) {
     this->ordem = ordem;
     this->proximaOrdem = nullptr;
+    this->ordemAnterior = nullptr;
 }
 
 NodoOrdemComando::~NodoOrdemComando() {
