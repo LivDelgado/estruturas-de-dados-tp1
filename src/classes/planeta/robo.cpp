@@ -1,20 +1,8 @@
 #include "planeta/robo.h"
 
-#include <iostream>
-
 using namespace extracaoZ;
 
-Robo::Robo() {
-    this->indice = 0;
-    this->emMissao = false;
-    this->posicaoX = 0;
-    this->posicaoY = 0;
-    this->numeroItensColetados = 0;
-    this->numeroAlienigenasDerrotados = 0;
-    this->ordensComando = new FilaOrdensComando();
-    this->ordensComandoPrioritarios = new PilhaOrdensComando();
-    this->historicoExecucao = new FilaOrdensComando();
-}
+Robo::Robo() : Robo(0) {}
 
 Robo::Robo(int indice) {
     this->indice = indice;
@@ -23,6 +11,9 @@ Robo::Robo(int indice) {
     this->posicaoY = 0;
     this->numeroItensColetados = 0;
     this->numeroAlienigenasDerrotados = 0;
+    this->ordensComando = new FilaOrdensComando();
+    this->ordensComandoPrioritarios = new PilhaOrdensComando();
+    this->historicoExecucao = new FilaOrdensComando();
 }
 
 Robo::~Robo() {
@@ -39,11 +30,15 @@ bool Robo::obterEmMissao() {
     return this->emMissao;
 }
 
-int Robo::setPosicaoX() {
+void Robo::setIndice(int indice) {
+    this->indice = indice;
+}
+
+int Robo::getPosicaoX() {
     return this->posicaoX;
 }
 
-int Robo::setPosicaoY() {
+int Robo::getPosicaoY() {
     return this->posicaoY;
 }
 

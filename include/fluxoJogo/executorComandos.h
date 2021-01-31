@@ -35,6 +35,8 @@ namespace extracaoZ {
             void roboColetarRecurso(OrdemComando* comando, Robo* robo);
             void roboEliminarAlien(OrdemComando* comando, Robo* robo);
 
+            void imprimirRelatorioFinalBase();
+
         public:
             ExecutorComandos(Planeta* planeta);
             ~ExecutorComandos();
