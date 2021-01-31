@@ -1,8 +1,8 @@
 #ifndef DECOD_COMANDO
 #define DECOD_COMANDO
 
-#include "fluxoJogo/leitorArquivos.h"
-#include "fluxoJogo/comando.h"
+#include "fluxoExtracao/leitorArquivos.h"
+#include "fluxoExtracao/comando.h"
 
 #include <string>
 

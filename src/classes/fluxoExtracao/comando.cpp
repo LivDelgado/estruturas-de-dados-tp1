@@ -1,4 +1,4 @@
-#include "fluxoJogo/comando.h"
+#include "fluxoExtracao/comando.h"
 #include "enums/acao.h"
 
 using namespace extracaoZ;

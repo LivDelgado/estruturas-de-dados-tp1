@@ -1,6 +1,6 @@
-#include "fluxoJogo/explorador.h"
-#include "fluxoJogo/leitorMapa.h"
-#include "fluxoJogo/executorComandos.h"
+#include "fluxoExtracao/explorador.h"
+#include "fluxoExtracao/leitorMapa.h"
+#include "fluxoExtracao/executorComandos.h"
 #include "planeta/planeta.h"
 
 using namespace extracaoZ;

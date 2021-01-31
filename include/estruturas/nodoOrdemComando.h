@@ -1,7 +1,7 @@
 #ifndef NODO_ORDEM
 #define NODO_ORDEM
 
-#include "fluxoJogo/ordemComando.h"
+#include "fluxoExtracao/ordemComando.h"
 
 namespace extracaoZ {
     class NodoOrdemComando {

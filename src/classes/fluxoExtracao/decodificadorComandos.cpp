@@ -1,6 +1,6 @@
-#include "fluxoJogo/decodificadorComandos.h"
-#include "fluxoJogo/leitorArquivos.h"
-#include "fluxoJogo/comando.h"
+#include "fluxoExtracao/decodificadorComandos.h"
+#include "fluxoExtracao/leitorArquivos.h"
+#include "fluxoExtracao/comando.h"
 #include "enums/acao.h"
 
 #include <sstream>
